@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsStatsCommand {
   IpfsStatsCommand();
@@ -37,7 +35,7 @@ class IpfsStatsCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-stats-bitswap
   Future<Map<String, dynamic>> bitswap({bool? verbose, bool? human}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/stats/bitswap",
       queryParameters: {
@@ -46,7 +44,7 @@ class IpfsStatsCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Print IPFS bandwidth information.
@@ -73,7 +71,7 @@ class IpfsStatsCommand {
   /// See more:
   Future<Map<String, dynamic>> bw(
       {String? peerId, String? proto, bool? poll, String? interval}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/stats/bw",
       queryParameters: {
@@ -84,7 +82,7 @@ class IpfsStatsCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Returns statistics about the node's DHT(s).
@@ -118,7 +116,7 @@ class IpfsStatsCommand {
   ///
   /// See more:
   Future<Map<String, dynamic>> dht({List<String>? tables}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/stats/dht",
       queryParameters: {
@@ -126,7 +124,7 @@ class IpfsStatsCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Returns statistics about the node's (re)provider system.
@@ -146,8 +144,8 @@ class IpfsStatsCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-stats-provide
   Future<Map<String, dynamic>> provide() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/stats/provide");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/stats/provide");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Get stats for the currently used repo.
@@ -174,7 +172,7 @@ class IpfsStatsCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-stats-repo
   Future<Map<String, dynamic>> repo({bool? sizeOnly, bool? human}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/stats/repo",
       queryParameters: {
@@ -183,6 +181,6 @@ class IpfsStatsCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsCompletionSubcommand {
   IpfsCompletionSubcommand();
@@ -21,8 +19,8 @@ class IpfsCompletionSubcommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-commands-completion-bash
   Future<Map<String, dynamic>> bash() async {
     Response? res =
-        await post(Ipfs.dio, url: "${Ipfs.url}/commands/completion/bash");
-    return interceptDioResponse(res);
+        await _post(Ipfs.dio, url: "${Ipfs.url}/commands/completion/bash");
+    return _interceptDioResponse(res);
   }
 }
 
@@ -63,12 +61,12 @@ class IpfsCommandsCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-commands
   Future<Map<String, dynamic>> self({bool? flags}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/commands",
       queryParameters: {if (flags != null) "flags": flags},
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

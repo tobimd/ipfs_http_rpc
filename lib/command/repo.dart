@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsRepoCommand {
   IpfsRepoCommand();
@@ -29,7 +27,7 @@ class IpfsRepoCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-repo-gc
   Future<Map<String, dynamic>> gc(
       {bool? streamErrors, bool? quiet, bool? silent}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/repo/gc",
       queryParameters: {
@@ -39,7 +37,7 @@ class IpfsRepoCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Get stats for the currently used repo.
@@ -66,7 +64,7 @@ class IpfsRepoCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-repo-stat
   Future<Map<String, dynamic>> stat({bool? sizeOnly, bool? human}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/repo/stat",
       queryParameters: {
@@ -75,7 +73,7 @@ class IpfsRepoCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Verify all blocks in repo are not corrupted.
@@ -93,8 +91,8 @@ class IpfsRepoCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-repo-verify
   Future<Map<String, dynamic>> verify() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/repo/verify");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/repo/verify");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Show the repo version.
@@ -114,7 +112,7 @@ class IpfsRepoCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-repo-version
   Future<Map<String, dynamic>> version({bool? quiet}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/repo/version",
       queryParameters: {
@@ -122,6 +120,6 @@ class IpfsRepoCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

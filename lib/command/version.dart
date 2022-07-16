@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsVersionCommand {
   IpfsVersionCommand();
@@ -31,7 +29,7 @@ class IpfsVersionCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-version
   Future<Map<String, dynamic>> self(
       {bool? number, bool? commit, bool? repo, bool? all}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/version",
       queryParameters: {
@@ -42,7 +40,7 @@ class IpfsVersionCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Shows information about dependencies used for build.
@@ -62,7 +60,7 @@ class IpfsVersionCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-version-deps
   Future<Map<String, dynamic>> deps() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/version/deps");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/version/deps");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

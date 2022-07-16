@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsProfileSubcommand {
   IpfsProfileSubcommand();
@@ -32,7 +30,7 @@ class IpfsProfileSubcommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-config-profile-apply
   Future<Map<String, dynamic>> function(
       {required String profile, bool? dryRun}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/config/profile/apply",
       queryParameters: {
@@ -41,7 +39,7 @@ class IpfsProfileSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -75,7 +73,7 @@ class IpfsConfigCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-config
   Future<Map<String, dynamic>> self(
       {required String key, String? value, bool? setBool, bool? json}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/config",
       queryParameters: {
@@ -86,7 +84,7 @@ class IpfsConfigCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Open the config file for editing in $EDITOR.
@@ -103,8 +101,8 @@ class IpfsConfigCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-config-edit
   Future<Map<String, dynamic>> edit() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/config/edit");
-    return interceptDioResponse(res);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/config/edit");
+    return _interceptDioResponse(res);
   }
 
   /// Replace the config with <file>.
@@ -124,9 +122,9 @@ class IpfsConfigCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-config-replace
   Future<Map<String, dynamic>> replace({required String path}) async {
-    Response? res = await post(Ipfs.dio,
-        url: "${Ipfs.url}/config/replace", data: await fileFormData(path));
-    return interceptDioResponse(res);
+    Response? res = await _post(Ipfs.dio,
+        url: "${Ipfs.url}/config/replace", data: await _fileFormData(path));
+    return _interceptDioResponse(res);
   }
 
   /// Output config file contents.
@@ -143,7 +141,7 @@ class IpfsConfigCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-config-show
   Future<Map<String, dynamic>> show() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/config/show");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/config/show");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

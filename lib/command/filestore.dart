@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsFilestoreCommand {
   IpfsFilestoreCommand();
@@ -21,8 +19,8 @@ class IpfsFilestoreCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-filestore-dups
   Future<Map<String, dynamic>> dups() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/filestore/dups");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/filestore/dups");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List objects in filestore.
@@ -50,7 +48,7 @@ class IpfsFilestoreCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-filestore-ls
   Future<Map<String, dynamic>> ls({String? cid, bool? fileOrder}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/filestore/ls",
       queryParameters: {
@@ -59,7 +57,7 @@ class IpfsFilestoreCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Verify objects in filestore.
@@ -87,7 +85,7 @@ class IpfsFilestoreCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-filestore-verify
   Future<Map<String, dynamic>> verify({String? cid, bool? fileOrder}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/filestore/verify",
       queryParameters: {
@@ -96,6 +94,6 @@ class IpfsFilestoreCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

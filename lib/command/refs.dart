@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsRefsCommand {
   IpfsRefsCommand();
@@ -38,7 +36,7 @@ class IpfsRefsCommand {
     bool? recursive,
     int? maxDepth,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/refs",
       queryParameters: {
@@ -51,7 +49,7 @@ class IpfsRefsCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List all local references.
@@ -69,7 +67,7 @@ class IpfsRefsCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-refs-local
   Future<Map<String, dynamic>> local() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/refs/local");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/refs/local");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

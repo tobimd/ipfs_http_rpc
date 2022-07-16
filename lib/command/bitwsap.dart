@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsBitswapCommand {
   IpfsBitswapCommand();
@@ -27,7 +25,7 @@ class IpfsBitswapCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bitswap-ledger
   Future<Map<String, dynamic>> ledger({required String peerId}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/bitwsap/ledger",
       queryParameters: {
@@ -35,7 +33,7 @@ class IpfsBitswapCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Trigger reprovider.
@@ -52,8 +50,8 @@ class IpfsBitswapCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bitswap-reprovide
   Future<Map<String, dynamic>> reprovide() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/bitswap/reprovide");
-    return interceptDioResponse(res);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/bitswap/reprovide");
+    return _interceptDioResponse(res);
   }
 
   /// Show some diagnostic information on the bitswap agent.
@@ -87,7 +85,7 @@ class IpfsBitswapCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bitswap-stat
   Future<Map<String, dynamic>> stat({bool? verbose, bool? human}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/bitswap/stat",
       queryParameters: {
@@ -96,7 +94,7 @@ class IpfsBitswapCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Show blocks currently on the wantlist.
@@ -120,7 +118,7 @@ class IpfsBitswapCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bitswap-wantlist
   Future<Map<String, dynamic>> wantList({String? peerId}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/bitswap/wantlist",
       queryParameters: {
@@ -128,6 +126,6 @@ class IpfsBitswapCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

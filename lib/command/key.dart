@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsKeyCommand {
   IpfsKeyCommand();
@@ -28,7 +26,7 @@ class IpfsKeyCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-key-export
   Future<Map<String, dynamic>> export(
       {required String name, String? output, String? format}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/key/export",
       queryParameters: {
@@ -38,7 +36,7 @@ class IpfsKeyCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Create a new keypair.
@@ -65,7 +63,7 @@ class IpfsKeyCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-key-gen
   Future<Map<String, dynamic>> gen(
       {required String name, String? type, int? size, String? ipnsBase}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/key/gen",
       queryParameters: {
@@ -76,7 +74,7 @@ class IpfsKeyCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Import a key and prints imported key id
@@ -107,10 +105,10 @@ class IpfsKeyCommand {
       String? base,
       String? format,
       bool? allowAnyKeyType}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/key/import",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         "arg": name,
         if (base != null) "ipns-base": base,
@@ -119,7 +117,7 @@ class IpfsKeyCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List all local keypairs.
@@ -145,7 +143,7 @@ class IpfsKeyCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-key-list
   Future<Map<String, dynamic>> list({bool? verbose, String? ipnsBase}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/key/list",
       queryParameters: {
@@ -154,7 +152,7 @@ class IpfsKeyCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Rename a keypair.
@@ -186,7 +184,7 @@ class IpfsKeyCommand {
       required String newName,
       bool? force,
       String? ipnsBase}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/key/rename",
       queryParameters: {
@@ -197,7 +195,7 @@ class IpfsKeyCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove a keypair.
@@ -227,7 +225,7 @@ class IpfsKeyCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-key-rm
   Future<Map<String, dynamic>> rm(
       {required List<String> names, bool? verbose, String? ipnsBase}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/key/rm",
       queryParameters: {
@@ -237,7 +235,7 @@ class IpfsKeyCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Rotates the IPFS identity.
@@ -260,7 +258,7 @@ class IpfsKeyCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-key-rotate
   Future<Map<String, dynamic>> rotate(
       {String? oldKey, String? type, int? size}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/key/rotate",
       queryParameters: {
@@ -270,6 +268,6 @@ class IpfsKeyCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 }

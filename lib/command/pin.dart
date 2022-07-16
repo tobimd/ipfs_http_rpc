@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsPinRemoteServiceSubcommand {
   IpfsPinRemoteServiceSubcommand();
@@ -28,7 +26,7 @@ class IpfsPinRemoteServiceSubcommand {
       {required String name,
       required String endpoint,
       required String key}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/remote/service/add",
       queryParameters: {
@@ -38,7 +36,7 @@ class IpfsPinRemoteServiceSubcommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// List remote pinning services.
@@ -72,7 +70,7 @@ class IpfsPinRemoteServiceSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pin-remote-service-ls
   Future<Map<String, dynamic>> ls({bool? stat}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/remote/service/ls",
       queryParameters: {
@@ -80,7 +78,7 @@ class IpfsPinRemoteServiceSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove remote pinning service.
@@ -100,7 +98,7 @@ class IpfsPinRemoteServiceSubcommand {
   ///
   /// See more:
   Future<Map<String, dynamic>> rm({required String name}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/remote/service/rm",
       queryParameters: {
@@ -108,7 +106,7 @@ class IpfsPinRemoteServiceSubcommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 }
 
@@ -146,7 +144,7 @@ class IpfsPinRemoteSubcommand {
       String? service,
       String? name,
       bool? background}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/remote/add",
       queryParameters: {
@@ -157,7 +155,7 @@ class IpfsPinRemoteSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List objects pinned to remote pinning service.
@@ -186,7 +184,7 @@ class IpfsPinRemoteSubcommand {
       String? name,
       List<String>? cid,
       List<String>? status}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/remote/ls",
       queryParameters: {
@@ -197,7 +195,7 @@ class IpfsPinRemoteSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove pins from remote pinning service.
@@ -226,7 +224,7 @@ class IpfsPinRemoteSubcommand {
       List<String>? cid,
       List<String>? status,
       bool? force}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/remote/rm",
       queryParameters: {
@@ -238,7 +236,7 @@ class IpfsPinRemoteSubcommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 }
 
@@ -271,7 +269,7 @@ class IpfsPinCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pin-add
   Future<Map<String, dynamic>> add(
       {required String path, bool? recursive, bool? progress}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/add",
       queryParameters: {
@@ -281,7 +279,7 @@ class IpfsPinCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List objects pinned to local storage.
@@ -315,7 +313,7 @@ class IpfsPinCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pin-ls
   Future<Map<String, dynamic>> ls(
       {String? path, String? type, bool? quiet, bool? stream}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/ls",
       queryParameters: {
@@ -326,7 +324,7 @@ class IpfsPinCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove object from pin-list.
@@ -350,7 +348,7 @@ class IpfsPinCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pin-rm
   Future<Map<String, dynamic>> rm(
       {required String path, bool? recursive}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/rm",
       queryParameters: {
@@ -359,7 +357,7 @@ class IpfsPinCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Update a recursive pin.
@@ -383,7 +381,7 @@ class IpfsPinCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pin-update
   Future<Map<String, dynamic>> update(
       {required String path, required String newPath, bool? unpin}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/update",
       queryParameters: {
@@ -393,7 +391,7 @@ class IpfsPinCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Verify that recursive pins are complete.
@@ -423,7 +421,7 @@ class IpfsPinCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pin-verify
   Future<Map<String, dynamic>> verify({bool? verbose, bool? quiet}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pin/verify",
       queryParameters: {
@@ -432,6 +430,6 @@ class IpfsPinCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

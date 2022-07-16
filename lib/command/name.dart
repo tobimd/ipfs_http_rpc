@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsNamePubsubSubcommand {
   IpfsNamePubsubSubcommand();
@@ -25,7 +23,7 @@ class IpfsNamePubsubSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-name-pubsub-cancel
   Future<Map<String, dynamic>> cancel({required String name}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/name/pubsub/cancel",
       queryParameters: {
@@ -33,7 +31,7 @@ class IpfsNamePubsubSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -52,8 +50,8 @@ class IpfsNamePubsubSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-name-pubsub-state
   Future<Map<String, dynamic>> state() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/name/pubsub/state");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/name/pubsub/state");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -75,7 +73,7 @@ class IpfsNamePubsubSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-name-pubsub-subs
   Future<Map<String, dynamic>> subs({String? ipnsBase}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/name/pubsub/subs",
       queryParameters: {
@@ -83,7 +81,7 @@ class IpfsNamePubsubSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -134,7 +132,7 @@ class IpfsNameCommand {
     bool? quieter,
     String? ipnsBase,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/name/publish",
       queryParameters: {
@@ -149,7 +147,7 @@ class IpfsNameCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Resolve IPNS names.
@@ -181,7 +179,7 @@ class IpfsNameCommand {
     String? dhtTimeout,
     bool? stream,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/name/resolve",
       queryParameters: {
@@ -194,6 +192,6 @@ class IpfsNameCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

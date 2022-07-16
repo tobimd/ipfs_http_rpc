@@ -1,7 +1,5 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+// ignore_for_file: library_private_types_in_public_ap
+part of ipfs_http_rpc;
 
 class IpfsDhtCommand {
   IpfsDhtCommand();
@@ -35,7 +33,7 @@ class IpfsDhtCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dht-findpeer
   Future<Map<String, dynamic>> findPeer(
       {required String peerId, bool? verbose}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dht/findpeer",
       queryParameters: {
@@ -44,7 +42,7 @@ class IpfsDhtCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Find peers that can provide a specific value, given a key.
@@ -77,7 +75,7 @@ class IpfsDhtCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dht-findprovs
   Future<Map<String, dynamic>> findProvs(
       {required String key, bool? verbose, int? numProviders}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dht/findprovs",
       queryParameters: {
@@ -87,7 +85,7 @@ class IpfsDhtCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Given a key, query the routing system for its best value.
@@ -118,7 +116,7 @@ class IpfsDhtCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dht-get
   Future<Map<String, dynamic>> get({required String key, bool? verbose}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dht/get",
       queryParameters: {
@@ -127,7 +125,7 @@ class IpfsDhtCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Announce to the network that you are providing given values.
@@ -159,7 +157,7 @@ class IpfsDhtCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dht-provide
   Future<Map<String, dynamic>> provide(
       {required String keys, bool? verbose, bool? recursive}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dht/provide",
       queryParameters: {
@@ -169,7 +167,7 @@ class IpfsDhtCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Write a key/value pair to the routing system.
@@ -202,17 +200,17 @@ class IpfsDhtCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dht-put
   Future<Map<String, dynamic>> put(
       {required String path, required String key, bool? verbose}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dht/put",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         "arg": key,
         if (verbose != null) "verbose": verbose,
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Find the closest Peer IDs to a given Peer ID by querying the DHT.
@@ -244,7 +242,7 @@ class IpfsDhtCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dht-query
   Future<Map<String, dynamic>> query(
       {required String peerId, bool? verbose}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dht/query",
       queryParameters: {
@@ -253,6 +251,6 @@ class IpfsDhtCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

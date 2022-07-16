@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsMultibaseCommand {
   IpfsMultibaseCommand();
@@ -23,13 +21,13 @@ class IpfsMultibaseCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-multibase-decode
   Future<Map<String, dynamic>> decode({required String path}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/multibase/decode",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Encode data into multibase string.
@@ -53,16 +51,16 @@ class IpfsMultibaseCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-multibase-encode
   Future<Map<String, dynamic>> encode(
       {required String path, String? encoding}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/multibase/encode",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         if (encoding != null) "b": encoding,
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// List available multibase encodings.
@@ -88,7 +86,7 @@ class IpfsMultibaseCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-multibase-list
   Future<Map<String, dynamic>> list({bool? prefix, bool? numeric}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/multibase/list",
       queryParameters: {
@@ -97,7 +95,7 @@ class IpfsMultibaseCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Transcode multibase string between bases.
@@ -121,15 +119,15 @@ class IpfsMultibaseCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-multibase-transcode
   Future<Map<String, dynamic>> transcode(
       {required String path, String? encoding}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/multibase/transcode",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         if (encoding != null) "b": encoding,
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 }

@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsP2pStreamSubcommand {
   IpfsP2pStreamSubcommand();
@@ -26,7 +24,7 @@ class IpfsP2pStreamSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-p2p-stream-close
   Future<Map<String, dynamic>> close({String? streamId, bool? all}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/p2p/stream/close",
       queryParameters: {
@@ -34,7 +32,7 @@ class IpfsP2pStreamSubcommand {
         if (all != null) "all": all,
       },
     );
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -63,7 +61,7 @@ class IpfsP2pStreamSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-p2p-stream-ls
   Future<Map<String, dynamic>> ls({bool? headers}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/p2p/stream/ls",
       queryParameters: {
@@ -71,7 +69,7 @@ class IpfsP2pStreamSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -105,7 +103,7 @@ class IpfsP2pCommand {
       String? protocol,
       String? listenAddress,
       String? targetAddress}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/p2p/close",
       queryParameters: {
@@ -116,7 +114,7 @@ class IpfsP2pCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -147,7 +145,7 @@ class IpfsP2pCommand {
       required String listen,
       required String target,
       bool? allowCustomProtocol}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/p2p/forward",
       queryParameters: {
@@ -159,7 +157,7 @@ class IpfsP2pCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -190,7 +188,7 @@ class IpfsP2pCommand {
       required String target,
       bool? allowCustomProtocol,
       bool? reportPeerId}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/p2p/listen",
       queryParameters: {
@@ -202,7 +200,7 @@ class IpfsP2pCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -230,7 +228,7 @@ class IpfsP2pCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-p2p-ls
   Future<Map<String, dynamic>> ls({bool? headers}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/p2p/ls",
       queryParameters: {
@@ -238,6 +236,6 @@ class IpfsP2pCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

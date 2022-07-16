@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsBlockCommand {
   IpfsBlockCommand();
@@ -23,7 +21,7 @@ class IpfsBlockCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-block-get
   Future<Map<String, dynamic>> get({required String blockCid}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/block/get",
       queryParameters: {
@@ -31,7 +29,7 @@ class IpfsBlockCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Store input as an IPFS block.
@@ -61,7 +59,7 @@ class IpfsBlockCommand {
       int? mhlen,
       bool? pin,
       bool? allowBigBlock}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/block/put",
       queryParameters: {
@@ -73,7 +71,7 @@ class IpfsBlockCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove IPFS block(s) from the local datastore.
@@ -99,7 +97,7 @@ class IpfsBlockCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-block-rm
   Future<Map<String, dynamic>> rm(
       {required String blockCid, bool? force, bool? quiet}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/block/rm",
       queryParameters: {
@@ -109,7 +107,7 @@ class IpfsBlockCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Print information of a raw IPFS block.
@@ -130,12 +128,12 @@ class IpfsBlockCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-block-stat
   Future<Map<String, dynamic>> stat({required String blockCid}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/block/stat",
       queryParameters: {"arg": blockCid},
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

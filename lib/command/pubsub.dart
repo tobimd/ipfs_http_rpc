@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsPubsubCommand {
   IpfsPubsubCommand();
@@ -22,8 +20,8 @@ class IpfsPubsubCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pubsub-ls
   Future<Map<String, dynamic>> ls() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/pupsub/ls");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/pupsub/ls");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -45,7 +43,7 @@ class IpfsPubsubCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pubsub-peers
   Future<Map<String, dynamic>> peers({String? topic}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pubsub/peers",
       queryParameters: {
@@ -53,7 +51,7 @@ class IpfsPubsubCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -77,16 +75,16 @@ class IpfsPubsubCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pubsub-pub
   Future<Map<String, dynamic>> pub(
       {required String topic, required String path}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pubsub/pub",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         "arg": topic,
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -113,7 +111,7 @@ class IpfsPubsubCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-pubsub-sub
   Future<Map<String, dynamic>> sub({required String topic}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/pubsub/sub",
       queryParameters: {
@@ -121,6 +119,6 @@ class IpfsPubsubCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

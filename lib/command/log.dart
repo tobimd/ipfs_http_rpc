@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsLogCommand {
   IpfsLogCommand();
@@ -25,7 +23,7 @@ class IpfsLogCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-log-level
   Future<Map<String, dynamic>> level(
       {required String id, required String level}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/log/level",
       queryParameters: {
@@ -34,7 +32,7 @@ class IpfsLogCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List the logging subsystems.
@@ -51,8 +49,8 @@ class IpfsLogCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-log-ls
   Future<Map<String, dynamic>> ls() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/log/ls");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/log/ls");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -71,7 +69,7 @@ class IpfsLogCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-log-tail
   Future<Map<String, dynamic>> tail() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/tail");
-    return interceptDioResponse(res);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/tail");
+    return _interceptDioResponse(res);
   }
 }

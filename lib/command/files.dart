@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsFilesCommand {
   IpfsFilesCommand();
@@ -32,7 +30,7 @@ class IpfsFilesCommand {
     int? cidVersion,
     String? hash,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/chcid",
       queryParameters: {
@@ -42,7 +40,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Add references to IPFS files and directories in MFS (or copy within MFS).
@@ -70,7 +68,7 @@ class IpfsFilesCommand {
     required String dst,
     bool? parents,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/cp",
       queryParameters: {
@@ -80,7 +78,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Flush a given path's data to disk.
@@ -101,10 +99,10 @@ class IpfsFilesCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-files-flush
   Future<Map<String, dynamic>> flush({String? path}) async {
     Response? res =
-        await post(Ipfs.dio, url: "${Ipfs.url}/files/flush", queryParameters: {
+        await _post(Ipfs.dio, url: "${Ipfs.url}/files/flush", queryParameters: {
       if (path != null) "arg": path,
     });
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List directories in the local mutable namespace.
@@ -137,7 +135,7 @@ class IpfsFilesCommand {
     bool? long,
     bool? doNotSort,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/ls",
       queryParameters: {
@@ -147,7 +145,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Make directories.
@@ -177,7 +175,7 @@ class IpfsFilesCommand {
     int? cidVersion,
     String? hash,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/mkdir",
       queryParameters: {
@@ -188,7 +186,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Move files.
@@ -212,7 +210,7 @@ class IpfsFilesCommand {
     required String src,
     required String dst,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/mv",
       queryParameters: {
@@ -221,7 +219,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Read a file in a given MFS.
@@ -249,7 +247,7 @@ class IpfsFilesCommand {
     int? offset,
     int? count,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/read",
       queryParameters: {
@@ -259,7 +257,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Remove a file.
@@ -287,7 +285,7 @@ class IpfsFilesCommand {
     bool? recursive,
     bool? force,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/rm",
       queryParameters: {
@@ -297,7 +295,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Display file status.
@@ -336,7 +334,7 @@ class IpfsFilesCommand {
     bool? size,
     bool? withLocal,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/stat",
       queryParameters: {
@@ -348,7 +346,7 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Write to a mutable file in a given filesystem.
@@ -390,10 +388,10 @@ class IpfsFilesCommand {
     int? cidVersion,
     String? hash,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/files/write",
-      data: contentFormData(data),
+      data: _contentFormData(data),
       queryParameters: {
         "arg": path,
         if (offset != null) "offset": offset,
@@ -407,6 +405,6 @@ class IpfsFilesCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 }

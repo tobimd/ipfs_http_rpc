@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsCmdsSubcommand {
   IpfsCmdsSubcommand();
@@ -35,7 +33,7 @@ class IpfsCmdsSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-diag-cmds
   Future<Map<String, dynamic>> self({bool? verbose}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/diag/cmds",
       queryParameters: {
@@ -43,7 +41,7 @@ class IpfsCmdsSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Clear inactive requests from the log.
@@ -60,8 +58,8 @@ class IpfsCmdsSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-diag-cmds-clear
   Future<Map<String, dynamic>> clear() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/diag/cmds/clear");
-    return interceptDioResponse(res);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/diag/cmds/clear");
+    return _interceptDioResponse(res);
   }
 
   /// Set how long to keep inactive requests in the log.
@@ -81,9 +79,9 @@ class IpfsCmdsSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-diag-cmds-set-time
   Future<Map<String, dynamic>> setTime({required String time}) async {
-    Response? res = await post(Ipfs.dio,
+    Response? res = await _post(Ipfs.dio,
         url: "${Ipfs.url}/diag/cmds/set-time", queryParameters: {"arg": time});
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 }
 
@@ -120,7 +118,7 @@ class IpfsDiagCommand {
     int? mutexProfileFraction,
     String? blockProfileRate,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/diag/profile",
       queryParameters: {
@@ -133,7 +131,7 @@ class IpfsDiagCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Print system diagnostic information.
@@ -150,7 +148,7 @@ class IpfsDiagCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-diag-sys
   Future<Map<String, dynamic>> sys() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/diag/sys");
-    return interceptDioResponse(res);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/diag/sys");
+    return _interceptDioResponse(res);
   }
 }

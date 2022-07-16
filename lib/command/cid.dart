@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsCidCommand {
   IpfsCidCommand();
@@ -25,7 +23,7 @@ class IpfsCidCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-cid-base32
   Future<Map<String, dynamic>> base32({required String cid}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/cid/base32",
       queryParameters: {
@@ -33,7 +31,7 @@ class IpfsCidCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List available multibase encodings.
@@ -55,7 +53,7 @@ class IpfsCidCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-cid-bases
   Future<Map<String, dynamic>> bases({bool? prefix, bool? numeric}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/cid/bases",
       queryParameters: {
@@ -64,7 +62,7 @@ class IpfsCidCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List available CID multicodecs.
@@ -86,7 +84,7 @@ class IpfsCidCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-cid-codecs
   Future<Map<String, dynamic>> codecs({bool? numeric, bool? supported}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/cid/codecs",
       queryParameters: {
@@ -95,7 +93,7 @@ class IpfsCidCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Format and convert a CID in various useful ways.
@@ -128,7 +126,7 @@ class IpfsCidCommand {
       String? version,
       String? multicodec,
       String? multibase}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/cid/format",
       queryParameters: {
@@ -140,7 +138,7 @@ class IpfsCidCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List available multihashes.
@@ -166,7 +164,7 @@ class IpfsCidCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-cid-hashes
   Future<Map<String, dynamic>> hashes({bool? numeric, bool? supported}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/cid/hashes",
       queryParameters: {
@@ -175,6 +173,6 @@ class IpfsCidCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

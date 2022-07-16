@@ -1,7 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsSwarmPeeringSubcommand {
   IpfsSwarmPeeringSubcommand();
@@ -24,7 +22,7 @@ class IpfsSwarmPeeringSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-peering-add
   Future<Map<String, dynamic>> add({required String peerAddr}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/peering/add",
       queryParameters: {
@@ -32,7 +30,7 @@ class IpfsSwarmPeeringSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List peers registered in the peering subsystem.
@@ -54,8 +52,8 @@ class IpfsSwarmPeeringSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-peering-ls
   Future<Map<String, dynamic>> ls() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/swarm/peering/ls");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/swarm/peering/ls");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove a peer from the peering subsystem.
@@ -75,7 +73,7 @@ class IpfsSwarmPeeringSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-peering-rm
   Future<Map<String, dynamic>> rm({required String peerId}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/peering/rm",
       queryParameters: {
@@ -83,7 +81,7 @@ class IpfsSwarmPeeringSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -104,8 +102,8 @@ class IpfsSwarmFiltersSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-filters
   Future<Map<String, dynamic>> self() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/swarm/filters");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/swarm/filters");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Add an address filter.
@@ -125,7 +123,7 @@ class IpfsSwarmFiltersSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-filters-add
   Future<Map<String, dynamic>> add({required String addr}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/filters/add",
       queryParameters: {
@@ -133,7 +131,7 @@ class IpfsSwarmFiltersSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove an address filter.
@@ -153,7 +151,7 @@ class IpfsSwarmFiltersSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-filters-rm
   Future<Map<String, dynamic>> rm({required String addr}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/filters/rm",
       queryParameters: {
@@ -161,7 +159,7 @@ class IpfsSwarmFiltersSubcommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -184,8 +182,8 @@ class IpfsSwarmAddrSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-addrs
   Future<Map<String, dynamic>> self() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/swarm/addrs");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/swarm/addrs");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List interface listening addresses.
@@ -202,8 +200,9 @@ class IpfsSwarmAddrSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-addrs-listen
   Future<Map<String, dynamic>> listen() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/swarm/addrs/listen");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res =
+        await _post(Ipfs.dio, url: "${Ipfs.url}/swarm/addrs/listen");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List local addresses.
@@ -223,13 +222,13 @@ class IpfsSwarmAddrSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-addrs-local
   Future<Map<String, dynamic>> local({String? id}) async {
-    Response? res = await post(Ipfs.dio,
+    Response? res = await _post(Ipfs.dio,
         url: "${Ipfs.url}/swarm/addrs/local",
         queryParameters: {
           if (id != null) "id": id,
         });
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -257,7 +256,7 @@ class IpfsSwarmCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-connect
   Future<Map<String, dynamic>> connect({required String peerAddr}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/connect",
       queryParameters: {
@@ -265,7 +264,7 @@ class IpfsSwarmCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Close connection to a given address.
@@ -285,7 +284,7 @@ class IpfsSwarmCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-disconnect
   Future<Map<String, dynamic>> disconnect({required String peerAddr}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/disconnect",
       queryParameters: {
@@ -293,7 +292,7 @@ class IpfsSwarmCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List peers with open connections.
@@ -330,7 +329,7 @@ class IpfsSwarmCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-peers
   Future<Map<String, dynamic>> peers(
       {bool? verbose, bool? streams, bool? latency, bool? direction}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/peers",
       queryParameters: {
@@ -341,7 +340,7 @@ class IpfsSwarmCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -365,16 +364,16 @@ class IpfsSwarmCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-limit
   Future<Map<String, dynamic>> limit(
       {required String path, required String scope}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/limit",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         "arg": scope,
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -396,7 +395,7 @@ class IpfsSwarmCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-swarm-limit
   Future<Map<String, dynamic>> stats({required String scope}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/swarm/limit",
       queryParameters: {
@@ -404,6 +403,6 @@ class IpfsSwarmCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 }

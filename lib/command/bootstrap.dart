@@ -1,7 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsBootstrapAddSubcommand {
   IpfsBootstrapAddSubcommand();
@@ -23,12 +21,12 @@ class IpfsBootstrapAddSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bootstrap-add
   Future<Map<String, dynamic>> self({String? peerId}) async {
-    Response? res = await post(Ipfs.dio,
+    Response? res = await _post(Ipfs.dio,
         url: "${Ipfs.url}/bootstrap/add",
         queryParameters: {
           if (peerId != null) "arg": peerId,
         });
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Add default peers to the bootstrap list.
@@ -46,8 +44,8 @@ class IpfsBootstrapAddSubcommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bootstrap-add-default
   Future<Map<String, dynamic>> defaults() async {
     Response? res =
-        await post(Ipfs.dio, url: "${Ipfs.url}/bootstrap/add/default");
-    return interceptDioResponse(res, expectsResponseBody: true);
+        await _post(Ipfs.dio, url: "${Ipfs.url}/bootstrap/add/default");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -71,14 +69,14 @@ class IpfsBootstrapRmSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bootstrap-rm
   Future<Map<String, dynamic>> self({String? peerId}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/bootstrap/rm",
       queryParameters: {
         if (peerId != null) "arg": peerId,
       },
     );
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Remove all peers from the bootstrap list.
@@ -95,8 +93,8 @@ class IpfsBootstrapRmSubcommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bootstrap-rm-all
   Future<Map<String, dynamic>> all() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/bootstrap/rm/all");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/bootstrap/rm/all");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
 
@@ -123,8 +121,8 @@ class IpfsBootstrapCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-bootstrap
   Future<Map<String, dynamic>> self() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/bootstrap");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/bootstrap");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Show peers in the bootstrap list.
@@ -141,7 +139,7 @@ class IpfsBootstrapCommand {
   ///
   /// See more:
   Future<Map<String, dynamic>> list() async {
-    Response? res = await post(Ipfs.dio, url: "${Ipfs.url}/bootstrap/list");
-    return interceptDioResponse(res, expectsResponseBody: true);
+    Response? res = await _post(Ipfs.dio, url: "${Ipfs.url}/bootstrap/list");
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

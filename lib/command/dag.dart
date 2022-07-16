@@ -1,7 +1,5 @@
 // ignore_for_file: equal_keys_in_map
-
-import 'package:dio/dio.dart';
-import 'package:ipfs_http_rpc/ipfs.dart';
+part of ipfs_http_rpc;
 
 class IpfsDagCommand {
   IpfsDagCommand();
@@ -27,7 +25,7 @@ class IpfsDagCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dag-export
   Future<Map<String, dynamic>> export(
       {required String cid, bool? progress}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dag/export",
       queryParameters: {
@@ -36,7 +34,7 @@ class IpfsDagCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Get a DAG node from IPFS.
@@ -60,7 +58,7 @@ class IpfsDagCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dag-get
   Future<Map<String, dynamic>> get(
       {required String object, String? outputCodec}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dag/get",
       queryParameters: {
@@ -69,7 +67,7 @@ class IpfsDagCommand {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Import the contents of .car files
@@ -109,10 +107,10 @@ class IpfsDagCommand {
       bool? silent,
       bool? stats,
       bool? allowBigBlock}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dag/import",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         if (pinRoots != null) "pin-roots": pinRoots,
         if (silent != null) "silent": silent,
@@ -121,7 +119,7 @@ class IpfsDagCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Add a DAG node to IPFS.
@@ -156,10 +154,10 @@ class IpfsDagCommand {
       bool? pin,
       String? hash,
       bool? allowBigBlock}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dat/put",
-      data: await fileFormData(path),
+      data: await _fileFormData(path),
       queryParameters: {
         if (storeCodec != null) "store-codec": storeCodec,
         if (inputCodec != null) "input-codec": inputCodec,
@@ -169,7 +167,7 @@ class IpfsDagCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Resolve IPLD block.
@@ -193,7 +191,7 @@ class IpfsDagCommand {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dag-resolve
   Future<Map<String, dynamic>> resolve({required String path}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dag/resolve",
       queryParameters: {
@@ -201,7 +199,7 @@ class IpfsDagCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Gets stats for a DAG.
@@ -226,7 +224,7 @@ class IpfsDagCommand {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-dag-stat
   Future<Map<String, dynamic>> stat(
       {required String cid, bool? progress}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/dag/stat",
       queryParameters: {
@@ -235,6 +233,6 @@ class IpfsDagCommand {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }

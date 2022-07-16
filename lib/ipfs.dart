@@ -2,24 +2,48 @@ library ipfs_http_rpc;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ipfs_http_rpc/commands.dart';
+
+part 'command/bitwsap.dart';
+part 'command/block.dart';
+part 'command/bootstrap.dart';
+part 'command/cid.dart';
+part 'command/commands.dart';
+part 'command/config.dart';
+part 'command/dag.dart';
+part 'command/dht.dart';
+part 'command/diag.dart';
+part 'command/files.dart';
+part 'command/filestore.dart';
+part 'command/key.dart';
+part 'command/log.dart';
+part 'command/multibase.dart';
+part 'command/name.dart';
+part 'command/p2p.dart';
+part 'command/pin.dart';
+part 'command/pubsub.dart';
+part 'command/refs.dart';
+part 'command/repo.dart';
+part 'command/stats.dart';
+part 'command/swarm.dart';
+part 'command/version.dart';
 
 /// Generate a `FormData` with `MultipartFile` content (files or directories to upload to IPFS).
-Future<FormData> fileFormData(String path,
+Future<FormData> _fileFormData(String path,
     {String? ipfsPath, String key = "file"}) async {
   return FormData.fromMap({
     key: await MultipartFile.fromFile(path, filename: ipfsPath),
   });
 }
 
-FormData contentFormData(String content,
+/// Generate a `FormData` with `MultipartFile` content.
+FormData _contentFormData(String content,
     {String? ipfsPath, String key = "file"}) {
   return FormData.fromMap(
       {key: MultipartFile.fromString(content, filename: ipfsPath)});
 }
 
 /// Catch [Dio] errors and print them.
-dynamic interceptDioError(DioError error) {
+dynamic _interceptDioError(DioError error) {
   // The request was made and the server responded with a status code that falls out of the range of 2xx and is also not 304.
   if (error.response != null) {
     final res = error.response;
@@ -47,7 +71,7 @@ dynamic interceptDioError(DioError error) {
 ///   "StatusMessage": "<statusMessage>",
 ///
 ///   // If expectsResponseBody is false
-///   // (option in `interceptDioResponse` of Ipfs methods)
+///   // (option in `_interceptDioResponse` of Ipfs methods)
 ///   "Text": "<response.data>",
 ///
 ///   // Otherwise, insert response.data contiguously if possible
@@ -56,7 +80,7 @@ dynamic interceptDioError(DioError error) {
 /// ```
 ///
 /// An empty `Map<String, dynamic>` object is returned when incoming `Response` is also `null`. This is to avoid using `null` checks for all methods and instead use [.isEmpty()].
-Map<String, dynamic> interceptDioResponse(Response? response,
+Map<String, dynamic> _interceptDioResponse(Response? response,
     {bool expectsResponseBody = false}) {
   if (response != null) {
     Map<String, dynamic> ret = {
@@ -85,7 +109,7 @@ Map<String, dynamic> interceptDioResponse(Response? response,
 }
 
 /// Create a POST request using [Dio].
-Future<Response?> post(
+Future<Response?> _post(
   Dio dio, {
   required String url,
   Map<String, dynamic>? queryParameters,
@@ -100,25 +124,7 @@ Future<Response?> post(
       options: options,
     );
   } on DioError catch (e) {
-    return interceptDioError(e);
-  }
-}
-
-/// Create a GET request using [Dio].
-Future<Response?> get(
-  Dio dio, {
-  required String url,
-  Map<String, dynamic>? queryParameters,
-  Options? options,
-}) async {
-  try {
-    return await dio.get(
-      url,
-      queryParameters: queryParameters,
-      options: options,
-    );
-  } on DioError catch (e) {
-    return interceptDioError(e);
+    return _interceptDioError(e);
   }
 }
 
@@ -132,7 +138,7 @@ Future<Response?> get(
 ///   "StatusMessage": "<statusMessage>",
 ///
 ///   // If expectsResponseBody is false
-///   // (option in `interceptDioResponse` of Ipfs methods)
+///   // (option in `_interceptDioResponse` of Ipfs methods)
 ///   "Text": "<response.data>",
 ///
 ///   // Otherwise, insert response.data contiguously if possible
@@ -340,10 +346,10 @@ class Ipfs {
     bool? rawLeaves,
     int? cidVersion,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       dio,
       url: "$url/add",
-      data: await fileFormData(path, ipfsPath: ipfsPath),
+      data: await _fileFormData(path, ipfsPath: ipfsPath),
       queryParameters: {
         if (quiet != null) "quiet": quiet,
         if (quieter != null) "quieter": quieter,
@@ -359,7 +365,7 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Show IPFS object data.
@@ -385,7 +391,7 @@ class Ipfs {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-cat
   Future<Map<String, dynamic>> cat(
       {required String path, int? offset, int? length, bool? progress}) async {
-    Response? res = await post(
+    Response? res = await _post(
       dio,
       url: "$url/cat",
       queryParameters: {
@@ -396,7 +402,7 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Download IPFS objects.
@@ -429,7 +435,7 @@ class Ipfs {
       bool? compress,
       int? compressionLevel,
       bool? progress}) async {
-    Response? res = await post(
+    Response? res = await _post(
       dio,
       url: "$url/get",
       queryParameters: {
@@ -442,7 +448,7 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res);
+    return _interceptDioResponse(res);
   }
 
   /// Show IPFS node id info.
@@ -470,7 +476,7 @@ class Ipfs {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-id
   Future<Map<String, dynamic>> id(
       {String? peerId, String? format, String? peerIdBase}) async {
-    Response? res = await post(
+    Response? res = await _post(
       dio,
       url: "$url/id",
       queryParameters: {
@@ -480,7 +486,7 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// List directory contents for Unix filesystem objects.
@@ -525,7 +531,7 @@ class Ipfs {
     bool? size,
     bool? stream,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       dio,
       url: "$url/ls",
       queryParameters: {
@@ -537,7 +543,7 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Send echo request packets to IPFS hosts.
@@ -563,7 +569,7 @@ class Ipfs {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-ping
   Future<Map<String, dynamic>> ping(
       {required String peerId, int? count}) async {
-    Response? res = await post(
+    Response? res = await _post(
       dio,
       url: "$url/ping",
       queryParameters: {
@@ -572,7 +578,7 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Resolve the value of names to IPFS or DAG path.
@@ -602,7 +608,7 @@ class Ipfs {
     int? dhtRecordCount,
     String? dhtTimeout,
   }) async {
-    Response? res = await post(
+    Response? res = await _post(
       dio,
       url: "$url/resolve",
       queryParameters: {
@@ -613,7 +619,7 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 
   /// Shut down the IPFS daemon.
@@ -630,8 +636,8 @@ class Ipfs {
   ///
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-shutdown
   Future<Map<String, dynamic>> shutdown() async {
-    Response? res = await post(dio, url: "$url/shutdown");
-    return interceptDioResponse(res);
+    Response? res = await _post(dio, url: "$url/shutdown");
+    return _interceptDioResponse(res);
   }
 
   /// # [ EXPERIMENTAL ]
@@ -657,7 +663,7 @@ class Ipfs {
   /// See more: https://docs.ipfs.io/reference/http/api/#api-v0-mount
   Future<Map<String, dynamic>> mount(
       {String? ipfsPath, String? ipnsPath}) async {
-    Response? res = await post(
+    Response? res = await _post(
       Ipfs.dio,
       url: "${Ipfs.url}/mount",
       queryParameters: {
@@ -666,6 +672,6 @@ class Ipfs {
       },
     );
 
-    return interceptDioResponse(res, expectsResponseBody: true);
+    return _interceptDioResponse(res, expectsResponseBody: true);
   }
 }
