@@ -45,3 +45,17 @@ Map<String, dynamic> response = await ipfs.filestore.ls();
 //     Type: error
 // }
 ```
+
+Some commands (like `ipfs refs`), should technically be callable from `ipfs.refs()`. However, because this command also contains subcommands (`ipfs refs local`), it can only be called with `ipfs.refs.self()` as a way to solve the naming conflict:
+
+```dart
+    // Does not work:
+    ipfs.refs();    
+    ipfs.refs.local();
+
+    // DOES work
+    ipfs.refs.self();
+    ipfs.refs.local();
+```
+
+This applies to other commands and subcommands (`bootstrap`, `diag`, etc.).
