@@ -1,6 +1,6 @@
 name: ipfs_http_rpc
-description: Yet another IPFS (HTTP RPC) client implementation for Dart.
-version: 0.0.1
+description: Yet another IPFS (HTTP RPC) client implementation for Dart. This package allows easy access to IPFS methods over HTTP with clear documentation.
+version: 0.0.2
 homepage: https://github.com/tobimd/ipfs_http_rpc.git
 repository: https://github.com/tobimd/ipfs_http_rpc
 
