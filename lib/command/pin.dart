@@ -1,10 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api, equal_keys_in_map
+// ignore_for_file: equal_keys_in_map
 
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsPinRemoteServiceSubcommand {
-  _IpfsPinRemoteServiceSubcommand();
+class IpfsPinRemoteServiceSubcommand {
+  IpfsPinRemoteServiceSubcommand();
 
   /// Add remote pinning service.
   /// `/api/v0/pin/remote/service/add`
@@ -112,11 +112,11 @@ class _IpfsPinRemoteServiceSubcommand {
   }
 }
 
-class _IpfsPinRemoteSubcommand {
-  final _IpfsPinRemoteServiceSubcommand service =
-      _IpfsPinRemoteServiceSubcommand();
+class IpfsPinRemoteSubcommand {
+  final IpfsPinRemoteServiceSubcommand service =
+      IpfsPinRemoteServiceSubcommand();
 
-  _IpfsPinRemoteSubcommand();
+  IpfsPinRemoteSubcommand();
 
   /// Pin object to remote pinning service.
   /// `/api/v0/pin/remote/add`
@@ -243,7 +243,7 @@ class _IpfsPinRemoteSubcommand {
 }
 
 class IpfsPinCommand {
-  final _IpfsPinRemoteSubcommand remote = _IpfsPinRemoteSubcommand();
+  final IpfsPinRemoteSubcommand remote = IpfsPinRemoteSubcommand();
   IpfsPinCommand();
 
   /// Pin objects to local storage.

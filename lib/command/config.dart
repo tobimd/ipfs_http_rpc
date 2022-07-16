@@ -1,10 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api, equal_keys_in_map
+// ignore_for_file: equal_keys_in_map
 
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsProfileSubcommand {
-  _IpfsProfileSubcommand();
+class IpfsProfileSubcommand {
+  IpfsProfileSubcommand();
 
   /// Apply profile to config.
   /// `/api/v0/config/profile/apply`
@@ -47,7 +47,7 @@ class _IpfsProfileSubcommand {
 
 class IpfsConfigCommand {
   /// Apply profiles to config.
-  final _IpfsProfileSubcommand profile = _IpfsProfileSubcommand();
+  final IpfsProfileSubcommand profile = IpfsProfileSubcommand();
 
   IpfsConfigCommand();
 

@@ -1,10 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api, equal_keys_in_map
+// ignore_for_file: equal_keys_in_map
 
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsCompletionSubcommand {
-  _IpfsCompletionSubcommand();
+class IpfsCompletionSubcommand {
+  IpfsCompletionSubcommand();
 
   /// Generate bash shell completions.
   /// `/api/v0/commands/completion/bash`
@@ -28,7 +28,7 @@ class _IpfsCompletionSubcommand {
 
 class IpfsCommandsCommand {
   /// Generate shell completions.
-  final _IpfsCompletionSubcommand completion = _IpfsCompletionSubcommand();
+  final IpfsCompletionSubcommand completion = IpfsCompletionSubcommand();
 
   /// List all available commands.
   /// `/api/v0/commands`

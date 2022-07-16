@@ -3,8 +3,8 @@
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsBootstrapAddSubcommand {
-  _IpfsBootstrapAddSubcommand();
+class IpfsBootstrapAddSubcommand {
+  IpfsBootstrapAddSubcommand();
 
   /// Add peers to the bootstrap list.
   /// `/api/v0/bootstrap/add`
@@ -51,8 +51,8 @@ class _IpfsBootstrapAddSubcommand {
   }
 }
 
-class _IpfsBootstrapRmSubcommand {
-  _IpfsBootstrapRmSubcommand();
+class IpfsBootstrapRmSubcommand {
+  IpfsBootstrapRmSubcommand();
 
   /// Remove peers from the bootstrap list.
   /// `/api/v0/bootstrap/rm`
@@ -102,10 +102,10 @@ class _IpfsBootstrapRmSubcommand {
 
 class IpfsBootstrapCommand {
   /// Add peers to the bootstrap list.
-  final _IpfsBootstrapAddSubcommand add = _IpfsBootstrapAddSubcommand();
+  final IpfsBootstrapAddSubcommand add = IpfsBootstrapAddSubcommand();
 
   /// Remove peers from the bootstrap list.
-  final _IpfsBootstrapRmSubcommand rm = _IpfsBootstrapRmSubcommand();
+  final IpfsBootstrapRmSubcommand rm = IpfsBootstrapRmSubcommand();
 
   IpfsBootstrapCommand();
 

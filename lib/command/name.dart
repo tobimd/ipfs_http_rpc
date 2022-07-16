@@ -1,10 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api, equal_keys_in_map
+// ignore_for_file: equal_keys_in_map
 
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsNamePubsubSubcommand {
-  _IpfsNamePubsubSubcommand();
+class IpfsNamePubsubSubcommand {
+  IpfsNamePubsubSubcommand();
 
   /// # [ EXPERIMENTAL ]
   ///
@@ -96,7 +96,7 @@ class IpfsNameCommand {
   ///
   /// Manage and inspect the state of the IPNS pubsub resolver.
   /// Note: this command is experimental and subject to change as the system is refined
-  final _IpfsNamePubsubSubcommand pubsub = _IpfsNamePubsubSubcommand();
+  final IpfsNamePubsubSubcommand pubsub = IpfsNamePubsubSubcommand();
 
   /// Publish IPNS names.
   /// `/api/v0/name/publish`

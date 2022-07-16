@@ -3,8 +3,8 @@
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsSwarmPeeringSubcommand {
-  _IpfsSwarmPeeringSubcommand();
+class IpfsSwarmPeeringSubcommand {
+  IpfsSwarmPeeringSubcommand();
 
   /// Add peers into the peering subsystem.
   /// `/api/v0/swarm/peering/add`
@@ -87,8 +87,8 @@ class _IpfsSwarmPeeringSubcommand {
   }
 }
 
-class _IpfsSwarmFiltersSubcommand {
-  _IpfsSwarmFiltersSubcommand();
+class IpfsSwarmFiltersSubcommand {
+  IpfsSwarmFiltersSubcommand();
 
   /// Manipulate address filters.
   /// `/api/v0/swarm/filters`
@@ -165,8 +165,8 @@ class _IpfsSwarmFiltersSubcommand {
   }
 }
 
-class _IpfsSwarmAddrSubcommand {
-  _IpfsSwarmAddrSubcommand();
+class IpfsSwarmAddrSubcommand {
+  IpfsSwarmAddrSubcommand();
 
   /// List known addresses. Useful for debugging.
   /// `/api/v0/swarm/addrs`
@@ -234,9 +234,9 @@ class _IpfsSwarmAddrSubcommand {
 }
 
 class IpfsSwarmCommand {
-  final _IpfsSwarmAddrSubcommand addr = _IpfsSwarmAddrSubcommand();
-  final _IpfsSwarmFiltersSubcommand filters = _IpfsSwarmFiltersSubcommand();
-  final _IpfsSwarmPeeringSubcommand peering = _IpfsSwarmPeeringSubcommand();
+  final IpfsSwarmAddrSubcommand addr = IpfsSwarmAddrSubcommand();
+  final IpfsSwarmFiltersSubcommand filters = IpfsSwarmFiltersSubcommand();
+  final IpfsSwarmPeeringSubcommand peering = IpfsSwarmPeeringSubcommand();
 
   IpfsSwarmCommand();
 

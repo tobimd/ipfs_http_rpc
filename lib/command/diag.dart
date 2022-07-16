@@ -1,10 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api, equal_keys_in_map
+// ignore_for_file: equal_keys_in_map
 
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsCmdsSubcommand {
-  _IpfsCmdsSubcommand();
+class IpfsCmdsSubcommand {
+  IpfsCmdsSubcommand();
 
   /// List commands run on this IPFS node.
   /// `/api/v0/diag/cmds`
@@ -89,7 +89,7 @@ class _IpfsCmdsSubcommand {
 
 class IpfsDiagCommand {
   /// List commands run on this IPFS node.
-  final _IpfsCmdsSubcommand cmds = _IpfsCmdsSubcommand();
+  final IpfsCmdsSubcommand cmds = IpfsCmdsSubcommand();
 
   IpfsDiagCommand();
 

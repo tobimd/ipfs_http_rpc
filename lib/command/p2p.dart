@@ -1,10 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api, equal_keys_in_map
+// ignore_for_file: equal_keys_in_map
 
 import 'package:dio/dio.dart';
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-class _IpfsP2pStreamSubcommand {
-  _IpfsP2pStreamSubcommand();
+class IpfsP2pStreamSubcommand {
+  IpfsP2pStreamSubcommand();
 
   /// # [ EXPERIMENTAL ]
   ///
@@ -76,7 +76,7 @@ class _IpfsP2pStreamSubcommand {
 }
 
 class IpfsP2pCommand {
-  final _IpfsP2pStreamSubcommand x = _IpfsP2pStreamSubcommand();
+  final IpfsP2pStreamSubcommand x = IpfsP2pStreamSubcommand();
   IpfsP2pCommand();
 
   /// # [ EXPERIMENTAL ]
