@@ -1,3 +1,7 @@
+## 0.0.3
+- Fix docstring for `Ipfs` class.
+- Move statement in example file ('example/main.dart') inside `print()`.
+
 ## 0.0.2
 - [**BREAKING CHANGE**] Privated methods that where previously public (`fileFormData()`, `post()`, `interceptDioResponse()`, etc.).
 - Remove export file 'lib/command.dart'.
@@ -6,5 +10,4 @@
 - Add example at 'example/main.dart'.
 
 ## 0.0.1
-
 - Initial release.
