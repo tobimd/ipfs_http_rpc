@@ -133,25 +133,49 @@ Future<Response?> _post(
 /// Responses are like the following:
 /// ```json
 /// {
-///   // Allways present
+///   // Allways present (assuming successful connection or no
+///   // Dio-related problems).
 ///   "StatusCode": "<statusCode>",
 ///   "StatusMessage": "<statusMessage>",
 ///
-///   // If expectsResponseBody is false
-///   // (option in `_interceptDioResponse` of Ipfs methods)
+///   // If 'text/plain' response is expected, i.e. ipfs cat
+///   // (see: https://docs.ipfs.io/reference/http/api/#api-v0-cat)
 ///   "Text": "<response.data>",
 ///
-///   // Otherwise, insert response.data contiguously if possible
-///   <response.data key/value pairs>,
+///   // Otherwise, insert response.data contiguously if the
+///   // response body is "map-like" (see examples below).
+///   "<response.data key>": "<response.data value>",
+///   "...",
+///
+///   // Sometimes, IPFS returns a list of objects (without a
+///   // given key). This is stored in "Data" as follows (see examples below):
+///   "Data": ["..."]
 /// }
 /// ```
 ///
-/// Example:
-/// ```dart
-/// Map<String, dyanmic> response = Ipfs().files.ls();
-/// print(response);
+/// ## Examples:
+///   - `ipfs files ls` returns an object with "Entries" key. Append returned keys to the response:
 ///
-/// //
+/// ```dart
+/// print( await ipfs.files.ls() );
+/// // {
+/// //   StatusCode: 200,
+/// //   StatusMessage: OK,
+/// //   Entries: [...],
+/// // }
+/// ```
+///
+///   - `ipfs cid bases` returns a list object. Add list to a key named "Data" in the response:
+///
+/// ```dart
+/// print( await ipfs.cid.bases() );
+/// // {
+/// //   StatusCode: 200,
+/// //   StatusMessage: OK,
+/// //   Data: [
+/// //       {Code: 109, Name: base64}, ...
+/// //   ],
+/// // }
 /// ```
 class Ipfs {
   static final Ipfs _instance = Ipfs._internal();
