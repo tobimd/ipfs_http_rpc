@@ -19,11 +19,10 @@ void main() async {
     print("The file's hash is $fileHash");
 
     // Try to read the file's contents.
-    Map<String, dynamic> catResponse = await ipfs.cat(path: "/ipfs/$fileHash");
+    print(await ipfs.cat(path: "/ipfs/$fileHash"));
 
-    print(catResponse);
     // Should print:
-    // {StatusCode: 200, StatusMessage: OK, Text: Hello!}
+    // {StatusCode: 200, StatusMessage: OK, Text: <file's content>}
   } else {
     print("Couldn't add file to IPFS.");
     print("Response: $response");
