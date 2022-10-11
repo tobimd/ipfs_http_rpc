@@ -1,3 +1,6 @@
+## 0.0.4
+- Set optional `url` in `Ipfs` factory constructor to not overwrite previous value if left unset.
+
 ## 0.0.3
 - Fix docstring for `Ipfs` class.
 - Move statement in example file ('example/main.dart') inside `print()`.

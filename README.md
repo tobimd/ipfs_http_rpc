@@ -14,8 +14,13 @@ A full implementation for [IPFS HTTP RPC](https://docs.ipfs.io/reference/http/ap
 ```dart
 import 'package:ipfs_http_rpc/ipfs.dart';
 
-// Defaults to: Ipfs(url: "http://127.0.0.1:5001/api/v0").
+// Use directly from Ipfs() or by getting the singleton instance of `Ipfs`.
 Ipfs ipfs = Ipfs();
+
+// `ipfs.url` is set to "http://127.0.0.1:5001/api/v0" by default. It can be
+// changed on the factory constructor or by setting it manually.
+Ipfs(url: "https://my-ipfs-endpoint/api/v0");
+ipfs.url = "https://my-ipfs-endpoint/api/v0";
 ```
 
 ### Access all commands with guaranteed responses
