@@ -128,7 +128,11 @@ Future<Response?> _post(
   }
 }
 
-/// IPFS HTTP RPC service implementation
+/// IPFS HTTP RPC service implementation.
+///
+/// This is a singleton class, and the instance is initialized with
+/// it's `url` attribute set to "http://127.0.0.1:5001/api/v0". It can be
+/// changed directly or by calling the factory constructor.
 ///
 /// Responses are like the following:
 /// ```json
@@ -182,9 +186,10 @@ class Ipfs {
 
   /// Get the global instance of this class.
   ///
-  /// Calling with new parameters will update these values.
-  factory Ipfs({String url = "http://127.0.0.1:5001/api/v0"}) {
-    _instance._url = url;
+  /// If `url` is set, then the singleton instance is updated to hold the new
+  /// value.
+  factory Ipfs({String? url}) {
+    _instance._url = url ?? _instance._url;
     return _instance;
   }
 
